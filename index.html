@@ -1,12 +1,4 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <!DOCTYPE html>
 <html lang="fi">
 <head>
     <meta charset="UTF-8">
@@ -35,12 +27,17 @@
         .puzzle div {
             width: 100px;
             height: 100px;
-            background-color: #ddd;
+            background-color: #e0e0e0; /* Iloinen harmaa väri */
             display: flex;
             justify-content: center;
             align-items: center;
             font-size: 24px;
             cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .puzzle div:hover {
+            background-color: #c7c7c7; /* Väri vaihtuu kun hiiren kursori menee päälle */
         }
 
         .empty {
@@ -66,7 +63,7 @@
 <body>
 
 <div class="puzzle" id="puzzle">
-    <!-- Puzzle pieces will be generated here -->
+    <!-- Palapelin palat tulevat tänne -->
 </div>
 
 <button onclick="shufflePuzzle()">Sekoita Palapeli</button>
@@ -81,7 +78,7 @@
 
         puzzleArray.forEach((num, index) => {
             const piece = document.createElement('div');
-            piece.textContent = num === 0 ? '' : num + 1; // Empty space is represented by an empty div
+            piece.textContent = num === 0 ? '' : num + 1; // Tyhjä tila merkitään tyhjällä tekstillä
             piece.className = num === 0 ? 'empty' : '';
             piece.dataset.index = index;
             piece.onclick = () => movePiece(index);
@@ -109,11 +106,10 @@
         createPuzzle();
     }
 
-    createPuzzle();  // Initialize puzzle
+    // Alusta palapeli siten, että tyhjä ruutu on oikeassa alakulmassa
+    puzzleArray = [1, 2, 3, 4, 5, 6, 7, 8, 0]; // Tämä asettaa tyhjän ruudun oikealle alakulmaan
+    createPuzzle();  // Luo palapeli
 </script>
-
-</body>
-</html>
 
 </body>
 </html>
