@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slider Puzzle</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        .puzzle {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+            gap: 5px;
+            border: 5px solid #333;
+            background-color: #fff;
+        }
+
+        .puzzle div {
+            width: 100px;
+            height: 100px;
+            background-color: #ddd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .empty {
+            background-color: #fff;
+            border: 2px solid #333;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="puzzle" id="puzzle">
+    <!-- Puzzle pieces will be generated here -->
+</div>
+
+<button onclick="shufflePuzzle()">Sekoita Palapeli</button>
+
+<script>
+    const puzzleSize = 3;
+    let puzzleArray = [...Array(puzzleSize * puzzleSize).keys()];
+
+    function createPuzzle() {
+        const puzzleContainer = document.getElementById('puzzle');
+        puzzleContainer.innerHTML = '';
+
+        puzzleArray.forEach((num, index) => {
+            const piece = document.createElement('div');
+            piece.textContent = num === 0 ? '' : num + 1; // Empty space is represented by an empty div
+            piece.className = num === 0 ? 'empty' : '';
+            piece.dataset.index = index;
+            piece.onclick = () => movePiece(index);
+            puzzleContainer.appendChild(piece);
+        });
+    }
+
+    function movePiece(index) {
+        const emptyIndex = puzzleArray.indexOf(0);
+        const validMoves = [
+            emptyIndex - 1, emptyIndex + 1, emptyIndex - puzzleSize, emptyIndex + puzzleSize
+        ];
+
+        if (validMoves.includes(index)) {
+            [puzzleArray[emptyIndex], puzzleArray[index]] = [puzzleArray[index], puzzleArray[emptyIndex]];
+            createPuzzle();
+        }
+    }
+
+    function shufflePuzzle() {
+        for (let i = puzzleArray.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [puzzleArray[i], puzzleArray[j]] = [puzzleArray[j], puzzleArray[i]];
+        }
+        createPuzzle();
+    }
+
+    createPuzzle();  // Initialize puzzle
+</script>
+
+</body>
+</html>
+
+</body>
+</html>
