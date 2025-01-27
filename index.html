@@ -70,7 +70,7 @@
 
 <script>
     const puzzleSize = 3;
-    let puzzleArray = [...Array(puzzleSize * puzzleSize).keys()];
+    let puzzleArray = [1, 2, 3, 4, 5, 6, 7, 8, 0]; // Tämä asettaa numerot 1-8 ja tyhjän ruudun oikealle alakulmaan
 
     function createPuzzle() {
         const puzzleContainer = document.getElementById('puzzle');
@@ -78,7 +78,7 @@
 
         puzzleArray.forEach((num, index) => {
             const piece = document.createElement('div');
-            piece.textContent = num === 0 ? '' : num + 1; // Tyhjä tila merkitään tyhjällä tekstillä
+            piece.textContent = num === 0 ? '' : num; // Tyhjä tila merkitään tyhjällä tekstillä
             piece.className = num === 0 ? 'empty' : '';
             piece.dataset.index = index;
             piece.onclick = () => movePiece(index);
@@ -106,8 +106,6 @@
         createPuzzle();
     }
 
-    // Alusta palapeli siten, että tyhjä ruutu on oikeassa alakulmassa
-    puzzleArray = [1, 2, 3, 4, 5, 6, 7, 8, 0]; // Tämä asettaa tyhjän ruudun oikealle alakulmaan
     createPuzzle();  // Luo palapeli
 </script>
 
